@@ -1,4 +1,4 @@
-# covid-analyser
+## covid-analyser
 
 A script that fetches the COVID-19 data, and analyses it to generate metrics for each state and sorts them in a table.
 
