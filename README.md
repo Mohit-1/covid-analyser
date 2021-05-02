@@ -2,7 +2,7 @@
 
 A script that fetches the COVID-19 data, and analyses it to generate metrics for each state and sorts them in a table.
 
-### Usage instructions:
+#### Usage instructions:
 virtualenv -p python3 venv
 
 source venv/bin/activate
