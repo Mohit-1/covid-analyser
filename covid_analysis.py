@@ -4,6 +4,9 @@ import argparse
 import requests
 from tabulate import tabulate
 
+RECOV_SCORE_WEIGHT = 1
+ACTIVE_SCORE_WEIGHT = 1
+DEATH_SCORE_WEIGHT = 1
 
 class Covid_Analyser:
     def __init__(self):
@@ -104,7 +107,13 @@ class Covid_Analyser:
                 'recov_score': recov_score,
                 'active_score': active_score,
                 'death_score': death_score,
-                'total_score': round(sum([recov_score, active_score, death_score]), 6),
+                'total_score': round(sum(
+                    [
+                        RECOV_SCORE_WEIGHT * recov_score,
+                        ACTIVE_SCORE_WEIGHT * active_score,
+                        DEATH_SCORE_WEIGHT * death_score
+                    ]
+                ), 6),
                 'recov_ratio': recov_meta.get('recovered_ratio'),
                 'active_ratio': active_meta.get('active_ratio'),
                 'death_ratio': death_meta.get('deaths_ratio')
@@ -125,7 +134,9 @@ if __name__ == '__main__':
     analyser = Covid_Analyser()
 
     if args.local:
-        analyser.get_data_from_file('/home/mohit/Desktop/covid_raw_data.json')
+        base_dir = os.path.dirname(os.path.abspath(__file__))
+        raw_file_path = f'{base_dir}/covid_raw_data.json'
+        analyser.get_data_from_file(raw_file_path)
     else:
         analyser.get_data()
 
